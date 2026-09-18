@@ -1,0 +1,20 @@
+2-Bit ALU with 7-Segment Display Integration
+A structural and behavioral Verilog HDL design of a 2-bit Arithmetic and Logic Unit (ALU) integrated with a customized 7-segment display decoder. Built as a complete digital logic system, this project performs arithmetic, logical, and comparison operations, outputting results simultaneously to onboard LEDs and a 7-segment character display.
+
+📌 Features
+3-Bit Instruction Select (8 Operations): Supports basic arithmetic, bitwise logic, and hardware-level magnitude comparisons.
+
+Custom Character Output: Map dynamic evaluation outputs (e.g., > / < / =) to display hex-like status characters (A, B, =).
+
+Dual-Output Architecture: Simultaneously drives 2-bit binary outputs to raw status LEDs and a decoded 7-segment display.
+
+Modular RTL Design: Separates procedural behavioral blocks from top-level structural interconnects for scalable HDL hierarchy.
+
+Module Descriptions
+1. ALU_2_bit.v
+Executes arithmetic, logic, or comparison tasks dynamically inside an always @(*) procedural block using a case selection structure. Extends data width to 4 bits internally to pass hex codes for comparison flags directly to the display unit.
+
+2. seg7_decoder.vTranslates 4-bit binary/hex codes (in[3:0]) into active-high driver signals for standard 7-segment display segments ($a, b, c, d, e, f, g$). Includes support for standard numeric digits as well as status characters (A, B, and =).
+
+3. top_alu_decoder.v
+The top-level structural wrapper module. Connects the 4-bit output of ALU_2_bit directly to the seg7_decoder input and routes the two lowest-significant output bits (alu_result[1:0]) to hardware status LEDs.
