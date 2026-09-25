@@ -1,0 +1,34 @@
+This File contains a modular Verilog hardware description for a 4-bit Binary-Coded Decimal (BCD) Counter coupled with a 7-Segment Display Decoder. This project is designed for FPGA implementation or simulation, translating sequential counting logic into visual output on a 7-segment display.
+
+📂 Repository Structure
+The project is structured modularly across the following components:
+1-BCD (Counter Module): A synchronous 4-bit counter that restricts its counting cycle from 0 to 9 (BCD standard), handling asynchronous low-level resets.
+2-seg7_decoder (Decoder Module): A combinational logic block that maps 4-bit binary inputs (including hexadecimal extensions A-C) into active-segment patterns for a 7-segment display.BCD_to_7seg 
+3- (Top-Level Module): Integrates the BCD counter and the 7-segment decoder into a single top-level system.
+
+🔌 Module Specifications & Pinout
+1. BCD Counter (BCD)
+Counts sequentially from 0 to 9 and rolls back to 0.
+Inputs:
+clk (wire): Clock signal triggering state transitions on the positive edge.
+reset (wire): Asynchronous active-low reset (!reset) that clears the output to 4'b0000. (Note: Ensure the signal name maps consistently with your testbench/top level).
+Outputs:
+bcd_out (reg [3:0]): 4-bit current count value.
+
+2. 7-Segment Decoder (seg7_decoder)
+Translates a 4-bit value into a 7-bit segment pattern.
+Inputs:
+in (wire [3:0]): 4-bit data input from the counter or external source.
+Outputs:
+seg (reg [6:0]): 7-bit output representing individual segments of the display.
+
+3. Top-Level Integration (BCD_to_7seg)
+
+Ties the internal counter (bcd_counter_7segment) and decoder (seg7_unit) together.
+
+Inputs:
+clk (wire): System clock.
+reset (wire): System reset.
+Outputs:
+seg (wire [6:0]): Drives the physical 7-segment pins.
+bcd_out (wire [3:0]): Exposes the internal count for monitoring or cascading.
